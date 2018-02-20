@@ -14,11 +14,27 @@ const QuestionType = new GraphQLObjectType({
   fields: () => ({
     difficulty: { 
       type: GraphQLString,
-      resolve: json => json.results[0].difficulty
+      resolve: results => results.difficulty
     },
     type: { 
       type: GraphQLString,
-      resolve: json => json.results[0].type
+      resolve: results => results.type
+    },
+    category: {
+      type: GraphQLString,
+      resolve: results => results.category
+    },
+    questionText: {
+      type: GraphQLString,
+      resolve: results => results.question
+    },
+    correctAnswer: {
+      type: GraphQLString,
+      resolve: results => results.correct_answer
+    },
+    incorrectAnswers: {
+      type: new GraphQLList(GraphQLString),
+      resolve: results => results.incorrect_answers
     }
   })
 })
@@ -40,6 +56,7 @@ module.exports = new GraphQLSchema({
         `https://opentdb.com/api.php?amount=${args.amount}&difficulty=${args.difficulty}&type=${args.type}`
         )
         .then(res => res.json())
+        .then(json => json.results)
       }
     })
   })

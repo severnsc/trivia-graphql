@@ -2,7 +2,8 @@ const {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLList
 } = require('graphql')
 const fetch = require('node-fetch')
 
@@ -29,7 +30,7 @@ module.exports = new GraphQLSchema({
 
     fields: () => ({
       question: {
-        type: QuestionType,
+        type: new GraphQLList(QuestionType),
         args: {
           amount: { type: GraphQLInt },
           difficulty: { type: GraphQLString },

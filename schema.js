@@ -4,7 +4,7 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = require('graphql')
 const fetch = require('node-fetch')
 

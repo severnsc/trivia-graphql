@@ -50,7 +50,11 @@ module.exports = new GraphQLSchema({
         type: QuestionType,
         args: {
           difficulty: { type: GraphQLString, defaultValue: "hard" },
-          type: { type: GraphQLString, defaultValue: "boolean" }
+          type: { 
+            type: GraphQLString,
+            defaultValue: "boolean",
+            description: "Can be 'boolean' or 'multiple'. Defaults to 'boolean. Set to empty string for a random mix of both.'"
+          }
         },
         resolve: (root, args) => fetch(
           `https://opentdb.com/api.php?amount=1&difficulty=${args.difficulty}&type=${args.type}`
@@ -63,7 +67,11 @@ module.exports = new GraphQLSchema({
         args: {
           amount: { type: new GraphQLNonNull(GraphQLInt) },
           difficulty: { type: GraphQLString, defaultValue: "hard" },
-          type: { type: GraphQLString, defaultValue: "boolean" }
+          type: { 
+            type: GraphQLString,
+            defaultValue: "boolean",
+            description: "Can be 'boolean' or 'multiple'. Defaults to 'boolean.' Set to empty string for a random mix of both."
+          }
         },
         resolve: (root, args) => fetch(
           `https://opentdb.com/api.php?amount=${args.amount}&difficulty=${args.difficulty}&type=${args.type}`

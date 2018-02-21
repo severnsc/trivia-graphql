@@ -49,7 +49,11 @@ module.exports = new GraphQLSchema({
       question: {
         type: QuestionType,
         args: {
-          difficulty: { type: GraphQLString, defaultValue: "hard" },
+          difficulty: { 
+            type: GraphQLString,
+            defaultValue: "hard",
+            description: "easy, medium or hard. Defaults to hard."
+          },
           type: { 
             type: GraphQLString,
             defaultValue: "boolean",
@@ -62,7 +66,11 @@ module.exports = new GraphQLSchema({
         type: new GraphQLList(QuestionType),
         args: {
           amount: { type: new GraphQLNonNull(GraphQLInt) },
-          difficulty: { type: GraphQLString, defaultValue: "hard" },
+          difficulty: { 
+            type: GraphQLString,
+            defaultValue: "hard",
+            description: "easy, medium or hard. Defaults to hard."
+          },
           type: { 
             type: GraphQLString,
             defaultValue: "boolean",

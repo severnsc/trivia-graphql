@@ -6,7 +6,7 @@ const {
   GraphQLList,
   GraphQLNonNull,
 } = require('graphql')
-const fetch = require('node-fetch')
+const {getQuestions} = require('./utils')
 
 const QuestionType = new GraphQLObjectType({
   name: 'Question',
@@ -56,11 +56,7 @@ module.exports = new GraphQLSchema({
             description: "Can be 'boolean' or 'multiple'. Defaults to 'boolean. Set to empty string for a random mix of both.'"
           }
         },
-        resolve: (root, args) => fetch(
-          `https://opentdb.com/api.php?amount=1&difficulty=${args.difficulty}&type=${args.type}`
-        )
-        .then(res => res.json())
-        .then(json => json.results[0])
+        resolve: (root, args) => getQuestions(args)
       },
       questions: {
         type: new GraphQLList(QuestionType),
@@ -73,11 +69,7 @@ module.exports = new GraphQLSchema({
             description: "Can be 'boolean' or 'multiple'. Defaults to 'boolean.' Set to empty string for a random mix of both."
           }
         },
-        resolve: (root, args) => fetch(
-          `https://opentdb.com/api.php?amount=${args.amount}&difficulty=${args.difficulty}&type=${args.type}`
-        )
-        .then(res => res.json())
-        .then(json => json.results)
+        resolve: (root, args) => getQuestions(args)
       }
     })
   })

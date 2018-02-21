@@ -48,9 +48,9 @@ module.exports = new GraphQLSchema({
       question: {
         type: new GraphQLList(QuestionType),
         args: {
-          amount: { type: GraphQLInt },
-          difficulty: { type: GraphQLString },
-          type: { type: GraphQLString }
+          amount: { type: GraphQLInt, defaultValue: 1 },
+          difficulty: { type: GraphQLString, defaultValue: "hard" },
+          type: { type: GraphQLString, defaultValue: "boolean" }
         },
         resolve: (root, args) => fetch(
         `https://opentdb.com/api.php?amount=${args.amount}&difficulty=${args.difficulty}&type=${args.type}`

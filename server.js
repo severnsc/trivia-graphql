@@ -8,4 +8,4 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }))
 
-app.listen(4000, console.log("Listening..."))
+app.listen(process.env.PORT || 4000, console.log("Listening..."))

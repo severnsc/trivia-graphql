@@ -3,7 +3,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull
 } = require('graphql')
 const fetch = require('node-fetch')
 
@@ -46,14 +47,26 @@ module.exports = new GraphQLSchema({
 
     fields: () => ({
       question: {
-        type: new GraphQLList(QuestionType),
+        type: QuestionType,
         args: {
-          amount: { type: GraphQLInt, defaultValue: 1 },
           difficulty: { type: GraphQLString, defaultValue: "hard" },
           type: { type: GraphQLString, defaultValue: "boolean" }
         },
         resolve: (root, args) => fetch(
-        `https://opentdb.com/api.php?amount=${args.amount}&difficulty=${args.difficulty}&type=${args.type}`
+          `https://opentdb.com/api.php?amount=1&difficulty=${args.difficulty}&type=${args.type}`
+        )
+        .then(res => res.json())
+        .then(json => json.results[0])
+      },
+      questions: {
+        type: new GraphQLList(QuestionType),
+        args: {
+          amount: { type: new GraphQLNonNull(GraphQLInt) },
+          difficulty: { type: GraphQLString, defaultValue: "hard" },
+          type: { type: GraphQLString, defaultValue: "boolean" }
+        },
+        resolve: (root, args) => fetch(
+          `https://opentdb.com/api.php?amount=${args.amount}&difficulty=${args.difficulty}&type=${args.type}`
         )
         .then(res => res.json())
         .then(json => json.results)

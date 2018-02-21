@@ -14,27 +14,27 @@ const QuestionType = new GraphQLObjectType({
   fields: () => ({
     difficulty: { 
       type: GraphQLString,
-      resolve: results => results.difficulty
+      resolve: result => result.difficulty
     },
     type: { 
       type: GraphQLString,
-      resolve: results => results.type
+      resolve: result => result.type
     },
     category: {
       type: GraphQLString,
-      resolve: results => results.category
+      resolve: result => result.category
     },
     questionText: {
       type: GraphQLString,
-      resolve: results => results.question
+      resolve: result => result.question
     },
     correctAnswer: {
       type: GraphQLString,
-      resolve: results => results.correct_answer
+      resolve: result => result.correct_answer
     },
     incorrectAnswers: {
       type: new GraphQLList(GraphQLString),
-      resolve: results => results.incorrect_answers
+      resolve: result => result.incorrect_answers
     }
   })
 })
